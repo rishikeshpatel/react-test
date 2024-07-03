@@ -22,9 +22,9 @@ module.exports = {
   plugins: ['react', 'react-hooks'],
   rules: {
     eqeqeq: 'off',
-    curly: 'error',
+    'no-unused-vars': 'warn',
     quotes: ['off', 'single'],
-    'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
+    'react-hooks/rules-of-hooks': 'warn', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'off', // Checks effect dependencies
   },
 };

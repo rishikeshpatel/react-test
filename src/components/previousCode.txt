@@ -1,0 +1,71 @@
+  // import axios from 'axios';
+  import { useTable } from 'react-table';
+import SelectDropdown from './components/SelectDropdown';
+// import { useEffect, useReducer } from 'react';
+// import { cartReducer } from './reducer/cartReducer';
+// import Products from './components/Products';
+// import Cart from './components/Cart';
+  
+  
+  const columns = useMemo(() => COLUMNS, []);
+  const data = useMemo(() => MOCK_DATA, []);
+  const [temp1, settemp1] = useState(2);
+  const [temp2, settemp2] = useState(2);
+
+  const tableInstance = useTable({
+    columns,
+    data,
+  });
+
+  useEffect(() => {
+    settemp2(temp2);
+  }, [temp1]);
+
+  useEffect(() => {
+    settemp1(temp1);
+  }, [temp2]);
+
+
+
+const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
+
+  return (
+    
+  );
+
+<div tabIndex={0} aria-label='Press tab to select table'>
+      Table data below
+      <button>test 1</button>
+      <button>test 2</button>
+      <label>Press tab to select table</label>
+      <table {...getTableProps()} tabIndex='0' aria-label='Case search'>
+        <thead>
+          {headerGroups.map((headerGroup, index) => (
+            <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column, i) => (
+                <th key={i} {...column.getHeaderProps()}>
+                  {column.render('Header')}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row, index) => {
+            prepareRow(row);
+            return (
+              <tr key={index} {...row.getRowProps()} tabIndex={0}>
+                {row.cells.map((cell, i) => {
+                  return (
+                    <td key={i} {...cell.getCellProps()}>
+                      {cell.render('Cell')}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <SelectDropdown />
+    </div>
