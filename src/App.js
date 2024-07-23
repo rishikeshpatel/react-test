@@ -1,15 +1,15 @@
-import React from 'react';
-// import AdjecencyListGraph from './graphDataStructure/AdjecencyListGraph';
+import React, { useState, useRef } from 'react';
+import './App.css'; // Include necessary CSS for styling
+import TableWithColumnScroll from './components/TableWithColumnScroll';
+import TableWithSubTables from './components/TbaleWithSubTable';
 import BFSAlgorithm from './graphDataStructure/BFSAlgorithm';
-// import DebouncingThrotelling from './components/DebouncingExample';
-import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className='graph-container'>
-      <BFSAlgorithm />
+    <div>
+      <TableWithSubTables />
     </div>
   );
-}
+};
 
 export default App;

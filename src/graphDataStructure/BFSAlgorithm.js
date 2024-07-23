@@ -37,6 +37,7 @@ const BFSAlgorithm = () => {
       // vis.forEach((node, index) => !node && dfs(graph, index, vis));
       // printAllPath(graph, vis, 0, '0', 5);
       // topSort(graph, V);
+      console.log(isCycleUndirected(graph, vis, 0, -1));
     }
   }, [graph]);
 
@@ -46,28 +47,29 @@ const BFSAlgorithm = () => {
     graphArray[0].push(new Edge(0, 4));
     // graphArray[0].push(new Edge(0, 2));
 
-    // graphArray[1].push(new Edge(1, 0));
-    // graphArray[1].push(new Edge(1, 3));
+    graphArray[1].push(new Edge(1, 0));
+    graphArray[1].push(new Edge(1, 2));
+    // graphArray[1].push(new Edge(1, 4));
 
-    // graphArray[2].push(new Edge(2, 0));
+    graphArray[2].push(new Edge(2, 1));
     // graphArray[2].push(new Edge(2, 4));
     graphArray[2].push(new Edge(2, 3));
 
-    // graphArray[3].push(new Edge(3, 0));
-    graphArray[3].push(new Edge(3, 1));
+    graphArray[3].push(new Edge(3, 2));
+    // graphArray[3].push(new Edge(3, 1));
     // graphArray[3].push(new Edge(3, 4));
     // graphArray[3].push(new Edge(3, 5));
 
     graphArray[4].push(new Edge(4, 0));
-    graphArray[4].push(new Edge(4, 1));
+    // graphArray[4].push(new Edge(4, 1));
     // graphArray[4].push(new Edge(4, 2));
     // graphArray[4].push(new Edge(4, 3));
-    // graphArray[4].push(new Edge(4, 5));
+    graphArray[4].push(new Edge(4, 5));
 
-    graphArray[5].push(new Edge(5, 0));
-    graphArray[5].push(new Edge(5, 2));
+    // graphArray[5].push(new Edge(5, 0));
+    // graphArray[5].push(new Edge(5, 2));
     // graphArray[5].push(new Edge(5, 3));
-    // graphArray[5].push(new Edge(5, 4));
+    graphArray[5].push(new Edge(5, 4));
     // graphArray[5].push(new Edge(5, 6));
 
     // graphArray[6].push(new Edge(6, 5));
@@ -105,6 +107,7 @@ const BFSAlgorithm = () => {
     }
   };
 
+  // printing all path from src to dest
   const printAllPath = (graphArray, vis, curr, path, target) => {
     if (curr === target) {
       console.log(path);
@@ -120,6 +123,7 @@ const BFSAlgorithm = () => {
     }
   };
 
+  // finding cycle in directed
   const isCycleDirected = (graphArray, vis, curr, rec) => {
     vis[curr] = true;
     rec[curr] = true;
@@ -138,6 +142,24 @@ const BFSAlgorithm = () => {
     return false;
   };
 
+  // finding cycle in undirected graph
+  const isCycleUndirected = (graphArray, vis, curr, par) => {
+    vis[curr] = true;
+
+    for (let i = 0; i < graphArray[curr].length; i++) {
+      let edge = graphArray[curr][i];
+      if (vis[edge.dest] && edge.dest !== par) {
+        return true;
+      } else if (!vis[edge.dest]) {
+        if (isCycleUndirected(graphArray, vis, edge.dest, curr)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  // Topological sorting *DAG* graph only
   const topSortUtil = (graphArray, curr, vis, topSortStack) => {
     vis[curr] = true;
     for (let i = 0; i < graphArray[curr].length; i++) {
@@ -149,6 +171,7 @@ const BFSAlgorithm = () => {
     topSortStack.push(curr);
   };
 
+  // Topological sorting
   const topSort = (graphArray, V) => {
     let vis = new Array(V).fill(false);
     let topSortStack = new Stack();
@@ -178,8 +201,7 @@ const BFSAlgorithm = () => {
   return (
     <div>
       <h1>Graph Structure Example!</h1>
-      <img src={bfsImage} />
-      <h2>BFS Traversal:</h2>
+      {/* <img src={bfsImage} /> */}
       {TraversedStr}
     </div>
   );

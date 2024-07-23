@@ -4,3 +4,72 @@
   align-items: center;
   height: 100vh;
 }
+
+.table-container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.freeze-column {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: white; /* Ensure the background color matches the table */
+  border-right: 1px solid #ddd;
+}
+
+.scrollable-table {
+  overflow-x: auto;
+}
+
+.main-table,
+.sub-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.main-table th,
+.main-table td,
+.sub-table th,
+.sub-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.main-table th {
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+.sub-table th {
+  background-color: #f9f9f9;
+}
+
+.sub-table th,
+.sub-table td {
+  text-align: left;
+}
+
+.sub-table {
+  margin-bottom: 20px; /* Add some space between sub-tables */
+}
+
+.sub-table:last-child {
+  margin-bottom: 0;
+}
+
+.sub-table-1 th:nth-child(3),
+.sub-table-2 th.span-header,
+.sub-table-3 th:nth-child(3) {
+  width: 150px; /* Set width to align Header 3 */
+}
+
+.sub-table-1 th:nth-child(4),
+.sub-table-2 th.span-header:nth-child(5),
+.sub-table-3 th:nth-child(4) {
+  width: 200px; /* Set width to align Header 4 */
+}
+
+.sub-table-2 th.span-header {
+  width: calc(350px / 4); /* Divide the width to align with the columns from the first sub-table */
+}
